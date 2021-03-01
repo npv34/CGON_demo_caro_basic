@@ -1,0 +1,14 @@
+td {
+    width: 25px;
+    height: 25px;
+}
+
+tr, td {
+    border: 1px red solid;
+}
+
+#game-board {
+    border-collapse: collapse;
+    /*border-color: red;*/
+    /*border: 1px red solid;*/
+}
