@@ -19,49 +19,79 @@ function drawGameBoard() {
 drawGameBoard();
 
 function play(x, y) {
-    if (player === 1) {
-        document.getElementById(x + '-' + y).innerHTML = 'X';
-        player = 2;
-        arr[x][y] = 'X'
-    } else {
-        document.getElementById(x + '-' + y).innerHTML = 'O';
-        player = 1;
-        arr[x][y] = '0'
+    if (arr[x][y] === '*'){
+        if (player === 1) {
+            document.getElementById(x + '-' + y).innerHTML = 'X';
+            player = 2;
+            arr[x][y] = 'X'
+        } else {
+            document.getElementById(x + '-' + y).innerHTML = 'O';
+            player = 1;
+            arr[x][y] = '0'
+        }
+
+        checkWin(x, y);
     }
 
-    checkWin();
 }
 
-function checkWin() {
+function checkWin(x, y) {
 
-    let count = 0;
-   // checkWin theo chieu ngang
-
+    let count = 1;
+    // checkWin theo chieu ngang
+    // chech theo chieu ngang ve ben trai o dang danh
+    let j = 1;
+    while (arr[x][y - j] === arr[x][y] && y - j >= 0) {
+        j++;
+        count++;
+    }
+    // chech theo chieu ngang ve ben phai o dang danh
+    while (arr[x][y + j] === arr[x][y] && y + j <= 10) {
+        j++;
+        count++;
+    }
+    extracted(count)
 
     // checkWin theo chieu doc
+    let i = 1;
+    let n = 1;
+    while (arr[x + i][y] === arr[x][y] && x + i <= 10) {
+        i++;
+        n++;
+    }
 
+    let m = 1;
+    while (arr[x - m][y] === arr[x][y] && x - m >= 0) {
+        m++;
+        n++;
+    }
+
+    extracted(n);
 
     // checkWin theo duong cheo trai
-
+    let k = 1;
+    let sum = 1;
+    while (arr[x + k][y - k] === arr[x][y]) {
+        k++;
+        sum++;
+    }
 
     // checkWin theo duong cheo phai
 
-    if (count === 5) {
-        alert("Game over")
+    let h = 1;
+    while (arr[x - h][y + h] === arr[x][y] && x - h >= 0) {
+        h++;
+        sum++;
     }
+    extracted(sum);
+
+
+
 }
 
-
-/*
-    Viết chương trình tính tổng các đường chéo mảng N x N .
-    Ví dụ:
-    input:
-    arr = [
-        [1, 3, 4, 5],
-        [0, 4, 5, 7],
-        [4, 5, 8, 7],
-        [2, 4, 5, 6]
-    ]
-    output = 1 + 4 + 8 + 6 + 5 + 5 + 5 + 2 =
-
- */
+function extracted(count) {
+    if (count === 5) {
+        alert("Game over")
+        return;
+    }
+}
